@@ -3,13 +3,16 @@ import { Provider } from "react-redux";
 import "./App.css";
 import store from "../../store";
 import Form from "../Form";
+import Counter from "../Counter";
 
 class App extends Component {
     render() {
-        console.log("render App");
         return (
             <Provider store={store}>
-                <Form />
+                <div>
+                    <Counter />
+                    <Form />
+                </div>
             </Provider>
         );
     }

@@ -1,43 +1,54 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import { compose } from "redux";
 import { performance } from "@luchanso/react-fast-compare";
 import { Field, reduxForm } from "redux-form";
-import styled from "styled-components";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import { FORM_SETTINGS } from "../../model/form";
+import { connect } from "react-redux";
+import { urlErrorSelector } from "../../selectors/validate/url-error-selector/url-error-selector";
+import { errorSelectorCreator } from "../../selectors/validate/error";
+import { Wrapper, Content, Error } from "./styles";
 
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-`;
+const errorSelector = errorSelectorCreator(FORM_SETTINGS, "url");
 
-const Content = styled.div`
-    flex-direction: column;
-    width: 240px;
+const mapStateToProps = state => ({
+    error: errorSelector(state)
+});
 
-    > * {
-        &:not(:first-child) {
-            margin-top: 16px;
-        }
-
-        button {
-        }
+class Form extends Component {
+    renderColleactionUrl() {
+        const component = ({ input, meta }) => (
+            <Fragment>
+                <Input placeholder="Collection URL" {...input} />
+                {meta.touched &&
+                    this.props.error && <Error>{this.props.error}</Error>}
+            </Fragment>
+        );
+        return <Field name="url" component={component} type="text" />;
     }
-`;
 
-class Form extends React.Component {
+    renderInterval() {
+        const component = props => (
+            <Input
+                type="number"
+                placeholder="Change wallpaper interval (min)"
+                {...props.input}
+            />
+        );
+        return <Field name="interval" component={component} type="text" />;
+    }
+
+    shouldComponentUpdate() {
+        return true;
+    }
+
     render() {
         return (
             <Wrapper>
                 <Content>
-                    <Input placeholder="Collection URL" />
-                    <Input
-                        type="number"
-                        placeholder="Change wallpaper interval (min)"
-                    />
+                    {this.renderColleactionUrl()}
+                    {this.renderInterval()}
                     <Button>Save</Button>
                 </Content>
             </Wrapper>
@@ -47,7 +58,7 @@ class Form extends React.Component {
 
 export default compose(
     reduxForm({
-        form: "settings"
+        form: FORM_SETTINGS
     }),
-    performance()
+    connect(mapStateToProps)
 )(Form);

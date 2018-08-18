@@ -9,7 +9,9 @@
         "react-redux": "^5.0.7",
         "react-scripts": "1.1.4",
         "redux": "^4.0.0",
+        "redux-actions": "^2.6.1",
         "redux-form": "^7.4.2",
+        "reselect": "^3.0.1",
         "styled-components": "^3.4.2"
     },
     "scripts": {
