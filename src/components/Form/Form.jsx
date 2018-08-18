@@ -25,6 +25,7 @@ class Form extends Component {
                     this.props.error && <Error>{this.props.error}</Error>}
             </Fragment>
         );
+
         return <Field name="url" component={component} type="text" />;
     }
 

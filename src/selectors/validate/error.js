@@ -9,8 +9,6 @@ export const errorSelectorCreator = (formName, fieldName) => {
         counterSelector,
         state => formValueSelector(state, fieldName),
         (counter, fieldValue) => {
-            console.log("temp", counter, fieldValue);
-
             if (fieldValue && fieldValue.length < 3) {
                 return "Ало! Длина должна быть БОЛЬШЕ 3х символов";
             }
