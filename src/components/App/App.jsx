@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
 import "./App.css";
-import HelloWorld from "../HelloWorld";
 import store from "../../store";
+import Form from "../Form";
 
 class App extends Component {
     render() {
+        console.log("render App");
         return (
             <Provider store={store}>
-                <HelloWorld />
+                <Form />
             </Provider>
         );
     }
